@@ -1,0 +1,30 @@
+\documentclass[11pt]{article}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+
+\begin{document}
+\begin{algorithm}[t]
+    \caption{Word count mapper using the``in-mapper combining''}
+    \label{algorithm:chapter3:word-count:outer-hash}
+    The mapper builds a histogram of all input documents processed before
+    emitting key-value pairs for unique words observed.
+    \begin{small}
+    \begin{Verbatim}[numbers=left, xleftmargin=7.5mm]
+    class Mapper {
+      val counts = new Map()
+      def map(key: Long, value: Text) = {
+        for (word <- tokenize(value)) {
+          counts(word) += 1
+        }
+      }
+      def cleanup() = {
+        for ((k, v) <- counts) {
+          emit(k, v)
+        }
+      }
+    }
+    \end{Verbatim}
+    \end{small}
+    \end{algorithm}
+\end{document}
